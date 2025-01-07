@@ -8,40 +8,71 @@ let ang = 90;
 let count = 0;
 let armback = false;
 
-let txt = "greg "
-let message
+let txt = "abcdefghijklmnopqrstuvwxyz.?- ";
+let message;
 
 const charMap = {
-  32: 'a', 33: 'b', 34: 'c', 35: 'd', 36: 'e', 37: 'f', 38: 'g', 39: 'h', 40: 'i', 41: 'j',
-  42: 'k', 43: 'l', 44: 'm', 45: 'n', 46: 'o', 47: 'p', 48: 'q', 49: 'r', 50: 's', 51: 't',
-  52: 'u', 53: 'v', 54: 'w', 55: 'x', 56: 'y', 57: 'z', 58: ' ', 59: '.', 60: ',', 61: '!',
-  62: '?', 63: '-'
+  32: "a",
+  33: "b",
+  34: "c",
+  35: "d",
+  36: "e",
+  37: "f",
+  38: "g",
+  39: "h",
+  40: "i",
+  41: "j",
+  42: "k",
+  43: "l",
+  44: "m",
+  45: "n",
+  46: "o",
+  47: "p",
+  48: "q",
+  49: "r",
+  50: "s",
+  51: "t",
+  52: "u",
+  53: "v",
+  54: "w",
+  55: "x",
+  56: "y",
+  57: "z",
+  58: " ",
+  59: ".",
+  60: ",",
+  61: "!",
+  62: "?",
+  63: "-",
 };
-
+let cnv;
 function getKeyFromValue(char) {
-  return Object.keys(charMap).find(key => charMap[key] === char) || '?';
+  return Object.keys(charMap).find((key) => charMap[key] === char) || "?";
 }
-
 
 function setup() {
   //createCanvas(930, 800);
-  createCanvas(windowWidth, windowHeight)
+  cnv = createCanvas(900, 1000);
+  let cx = (windowWidth - cnv.width) / 2;
+  let cy = (windowHeight - cnv.height) / 2;
+  cnv.position(cx, cy);
   angleMode(DEGREES);
+  pixelDensity(1);
 
   //frameRate(10)
   swept = false;
 
-  message =txt.toLocaleLowerCase().split("")
-  print(message)
+  message = txt.toLocaleLowerCase().split("");
+  print(message);
 }
 
 function draw() {
   background(0);
-  let cnum = int(getKeyFromValue(message[count]))
+  let cnum = int(getKeyFromValue(message[count]));
   //print(cnum)
 
-  doArm(width / 2,cnum, 2);
- // print(getKeyFromValue(message[count]), message[count])
+  doArm(width / 2, cnum, 2);
+  // print(getKeyFromValue(message[count]), message[count])
   //doArm(width - width / 3.5, count, 2);
   if (!armback) {
     turn += 1;
@@ -59,7 +90,7 @@ function draw() {
     count++;
   }
 
-  if (count > message.length-1) {
+  if (count > message.length - 1) {
     count = 0;
   }
 }
@@ -69,7 +100,7 @@ function doArm(p, n, base) {
   let instr = n.toString(base); // only the arm
   //print("arm",instr)
 
-  turtle(instr, color(165,169,180), p);
+  turtle(instr, color(165, 169, 180), p);
 }
 
 function doTree(p, n, base) {
@@ -97,7 +128,7 @@ function turtle(inString, clr, p) {
 
   let instrarr = inString.split(""); // split into an arry
   //print(instrarr)
-  let sz = height/2.8;
+  let sz = height / 2.8;
   let x = p;
   let y = height;
   // let  x1= x+sz*cos(ang)  // x1 = x + amount * cos (theta)
@@ -105,8 +136,8 @@ function turtle(inString, clr, p) {
   let x1 = x;
   let y1 = y - sz;
   strokeWeight(sz / 9);
-  let sw = sz/9
-  stroke(165,169,180);
+  let sw = sz / 9;
+  stroke(165, 169, 180);
   line(x, y, x1, y1);
   x = x1;
   y = y1;
@@ -118,12 +149,12 @@ function turtle(inString, clr, p) {
       // turn right
 
       ang -= turn;
-      stroke(224,224,224);
+      stroke(224, 224, 224);
     } else if (instrarr[i] == "0") {
       // turn left
 
       ang += turn;
-      stroke(165,169,180);
+      stroke(165, 169, 180);
     } else if (instrarr[i] == "2") {
       ang = ang * 2 - ang;
       stroke(0, 0, 255);
@@ -134,7 +165,7 @@ function turtle(inString, clr, p) {
     x1 = x + sz * cos(ang); // x1 = x + amount * cos (theta)
     y1 = y - sz * sin(ang); // y1 =y + amount * sin (theta)
     //strokeWeight(sw);
-    strokeWeight(sz / 7); 
+    strokeWeight(sz / 7);
     line(x, y, x1, y1);
     x = x1;
     y = y1;
